@@ -11,7 +11,8 @@ import '../../app/globals.css'
 import {  useEffect, useState } from 'react'
 import { menuIcon, resetIcon, stopIcon, stopplayIcon ,backIcon } from '@/assets';
 import Link from 'next/link';
-
+import dataConfig from '@/const/constData';
+const TimeClock:any = dataConfig?.time
 
 
 export default function JumpApp() {
@@ -20,9 +21,12 @@ export default function JumpApp() {
   const [lap , setLap]= useState(0)
   const [totalLap , setTotalLap]= useState(5)
   const [levels , setLevels] = useState<TDificult>({rest:20,go:40})
+  
+  
+  
 
   return (
-    <section className=' w-screen h-screen md:mt-8 md:bg-gray-400 ] bg-slate-400  mx-auto fixed'>
+    <section className=' w-screen h-screen md:mt-8 md:bg-gray-400  bg-blue-400  mx-auto fixed'>
       <div className='mx-auto w-2'>
         
       </div>
@@ -30,21 +34,13 @@ export default function JumpApp() {
       <div className=' w-[100%] h-[500px] m-auto flex flex-col items-center pt-10 mb-3'>
         <p className='mb-8 text-[32px] font-bold'>  {lap} de {totalLap}</p>
         <div className='w-[100%] relative h-[900px] z-0 flex justify-center items-center'>
-              <div className=' absolute right-[80px] top-[-80px] '>
-                  <Link href='/'>
-                  <Image
-                              src={backIcon}
-                              alt="Descripción de la imagen"
-                              width={50}
-                              height={50}
-                            />
-                  </Link>
-            </div>
+            
 
 
 
           
           <div className='absolute top-4 '>
+          <BackBoton/>
             <div className='w-6 h-6 bg-black absolute  top-[140px] left-[134px] rounded-full z-50'></div>
             <Manecilla time={segundos} restTime={levels.rest}/>
             <div className='text-white font-bold text-[36px] top-[190px] left-[134px] absolute z-10'>{segundos}</div>
@@ -113,7 +109,7 @@ const Manecilla =({time , restTime}:PropsM)=>{
           if (!pausado) {
             intervalId = setInterval(() => {
               setSegundos((prevSegundos:number) => prevSegundos + 1);
-            }, 300);
+            }, TimeClock );
           }          
           return () => {
             clearInterval(intervalId);
@@ -201,21 +197,41 @@ const Manecilla =({time , restTime}:PropsM)=>{
         return(
           <div className='absolute bottom-[200px] left-0 w-auto h-48 p-6 flex flex-col items-center justify-evenly bg-gradient-to-b from-gray-600 to-white rounded-lg shadow-xl' >
            <p className='text-black font-semibold text-[24px]'>Optios</p>
-          <div className='w-[400px] h-8  flex justify-between px-6'>
-                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(5)}>5</button>
-                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(10)}>10</button>
-                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(15)}>15</button>
+          <div className='w-[400px] h-20 mb-3  flex flex-col justify-between items-center px-6'>
+            <p className='font-semibold mb-3' >Cuantas Vueltas?</p>
+            <div className='w-full h-8 flex flex-row justify-between'>
+              <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(5)}>5</button>
+              <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(10)}>10</button>
+              <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={()=>ride(15)}>15</button>
+            </div>                    
+          </div>
+          <div className='w-[400px] h-20 mb-3  flex flex-col justify-between items-center px-6'>
+          <p className='font-semibold mb-3'>Tiempo de descanso?</p>
+                  <div className='w-full h-8 flex flex-row justify-between'>
+                  <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:35,rest:25})}>25s</button>
+                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:40,rest:20})}>20s</button>
+                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:45,rest:15})}>15s</button>
       
                   </div>
-             
-                  <div className='w-[400px] h-8  flex justify-between px-6'>
-                  <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:35,rest:25})}>levelEasy</button>
-                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:40,rest:20})}>levelMid</button>
-                    <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" onClick={()=>chouseLevels({go:55,rest:15})}>levelHard</button>
-      
                   </div>
           </div>
       
         )
       }
      
+
+const BackBoton = () =>{
+
+  return (
+    <div className=' absolute right-[-70px] top-[-80px] '>
+    <Link href='/'>
+    <Image
+                src={backIcon}
+                alt="Descripción de la imagen"
+                width={50}
+                height={50}
+              />
+    </Link>
+</div>
+)}
+

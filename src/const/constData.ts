@@ -1,10 +1,9 @@
+const time = process.env.NEXT_PUBLIC_JUMP_TIME;
 
-type FData ={
-  isPlay:any
-  time:any
 
-  setTime :any
-  lap :any
-  setLap:any
+const dataConfig = {
+  time
 }
+
+export default dataConfig
 
