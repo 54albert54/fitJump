@@ -7,8 +7,10 @@ import { useEffect, useState } from "react"
 import MoreOptions from "./MoreOptions"
 import MenuBoton from "./MenuBoton"
 import BotonOption from "./BotonOption"
+import MainBotonContainer from "./MainBotonContainer"
 
 const TimeClock:any = dataConfig?.time
+const isInDev = dataConfig?.isdev
 
 type PropsC ={
   segundos:any
@@ -23,10 +25,7 @@ type PropsC ={
 }
 export default function Temporizador ({segundos ,setSegundos,pausado,setPausado,setLap ,lap ,makeLevels ,totalLap , setTotalLap}:PropsC) {  
   const [otherMenu , setOtherMenu ] = useState(false)
-  if(segundos > 60){
-    setSegundos((stat:number) => stat = 0);
-    setLap((time:number)=> time + 1)
-  }
+ 
   useEffect(() => {
     let intervalId:any;
     if (!pausado) {
@@ -51,9 +50,6 @@ export default function Temporizador ({segundos ,setSegundos,pausado,setPausado,
     setLap((time:number)=> time = 0)
     pausarTemporizador()
   };
-  if (lap == totalLap){
-    pausarTemporizador()
-  }
   const chouseLevels = ({go ,rest}:TDificult)=>{
     makeLevels({go,rest})
   }
@@ -61,59 +57,25 @@ export default function Temporizador ({segundos ,setSegundos,pausado,setPausado,
   const ride =(total:number)=>{
     setTotalLap(total)
   }
- 
-  
+  if(segundos > 59){
+      if (lap >= (totalLap-1)){
+          pausarTemporizador()
+    }
+    setSegundos((stat:number) => stat = 0);
+    setLap((time:number)=> time + (isInDev?.5:1))
+  }
+
   return ( 
-
-    <div className='w-auto h-48 p-6 flex flex-col items-center justify-evenly bg-gradient-to-t from-gray-800 to-white rounded-lg shadow-xl relative'>
- 
-   <MenuBoton setOtherMenu={setOtherMenu}/>
-     
-     
-      
-
+    <div className='relative bottom-12 w-[430px] h-[280px] flex flex-col items-center justify-evenly bg-gradient-to-t from-gray-800 to-white rounded-lg shadow-xl '>
+    <MenuBoton setOtherMenu={setOtherMenu}/>
       {otherMenu?
-       <MoreOptions ride={ride} chouseLevels={chouseLevels} setOtherMenu={setOtherMenu} />
+       <MoreOptions ride={ride} chouseLevels={chouseLevels} setOtherMenu={setOtherMenu}  />
       :<MainBotonContainer pausarTemporizador={pausarTemporizador} reanudarTemporizador={reanudarTemporizador} reiniciarTemporizador={reiniciarTemporizador} />
     }
-     
     </div>
 );
 };
 
 
-type PropsBC= {pausarTemporizador:any 
-  reanudarTemporizador:any 
-  reiniciarTemporizador:any
-}
-function MainBotonContainer({pausarTemporizador ,reanudarTemporizador ,reiniciarTemporizador}:PropsBC){
-  return(
-    <section className='w-[400px] h-8  flex justify-between px-6 mt-12'>
-      <BotonOption callAction={pausarTemporizador}>
-        <Image
-            src={stopIcon}
-            alt="Descripción de la imagen"
-            width={50}
-            height={50}
-          />
-        </BotonOption>
-        <BotonOption callAction={reanudarTemporizador}>
-        <Image
-            src={stopplayIcon}
-            alt="Descripción de la imagen"
-            width={50}
-            height={50}
-          />
-        </BotonOption>
-        <BotonOption callAction={reiniciarTemporizador}>
-        <Image
-            src={resetIcon}
-            alt="Descripción de la imagen"
-            width={50}
-            height={50}
-          />
-        </BotonOption>
-        
-      </section>
-  )
-}
+
+

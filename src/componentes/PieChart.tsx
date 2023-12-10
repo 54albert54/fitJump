@@ -20,7 +20,7 @@ const PieChart = ({nivel}:Props) => {
     datasets: [
       {
         data: [nivel.rest, nivel.go], // Valores de cada segmento
-        backgroundColor: ['#FF0000', '#000', ], // Colores de cada segmento
+        backgroundColor: ['#ff0000', '#000', ], // Colores de cada segmento
         hoverBackgroundColor: ['#FF6384', '#484848'], // Colores al pasar el ratón
       },
     ],

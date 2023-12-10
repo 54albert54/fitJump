@@ -37,7 +37,7 @@ export default function JumpApp() {
           <BackBoton/>
             <div className='w-6 h-6 bg-black absolute  top-[140px] left-[134px] rounded-full z-50'></div>
             <Manecilla time={segundos} restTime={levels.rest}/>
-            <div className='text-white font-bold text-[36px] top-[190px] left-[134px] absolute z-10'>{segundos}</div>
+            <div className='text-white font-bold text-[48px] top-[120px] left-[64px] absolute z-10'>{segundos}</div>
             <PieChart nivel={levels} />
           </div>
         </div>

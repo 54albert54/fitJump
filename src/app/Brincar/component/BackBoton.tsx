@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function BackBoton (){
 
   return (
-    <div className=' absolute right-[-70px] top-[-80px] '>
+    <div className=' absolute right-[-30px] top-[-80px] '>
     <Link href='/'>
     <Image
                 src={backIcon}

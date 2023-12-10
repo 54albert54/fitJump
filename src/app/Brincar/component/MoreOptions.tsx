@@ -12,7 +12,7 @@ type Props ={
 export default function MoreOptions ({ride,chouseLevels ,setOtherMenu}:Props){
 
   return(
-    <div className='absolute   w-auto h-auto p-6 flex flex-col items-center justify-evenly bg-gradient-to-t from-gray-600 to-white rounded-lg shadow-xl' >
+    <div className='flex flex-col items-center justify-evenly ' >
      <p className='text-black font-bold text-[24px] mb-3'>Opciones</p>
      <MenuBoton setOtherMenu={setOtherMenu}/>
     <div className='w-[400px] h-auto mb-3  flex flex-col justify-between items-center px-6'>

@@ -24,8 +24,8 @@ export default function Manecilla ({time , restTime}:PropsM){
   }
   
   return(
-          <div style={createStiles()} className={`w-[8px] h-[150px] border rounded-full border-black
-          transform origin-bottom rotdate-[180deg] absolute top-[1px] right-[147px] z-30`}>
+          <div style={createStiles()} className={`w-[8px] h-[145px] border rounded-full border-black
+          transform origin-bottom rotdate-[180deg] absolute top-[1px] right-[145px] z-30`}>
           </div>
         
         )
