@@ -1,5 +1,5 @@
 "use client"
-// import MoreOptions from '@/componentes/MoreOption';
+
 import PieChart, { TDificult } from '@/componentes/PieChart'
 import '../../app/globals.css'
 import { useState } from 'react'
@@ -27,11 +27,7 @@ export default function JumpApp() {
     }else{
       return {bg:'#6c6c6c'}
     }
-
   }
- 
-  
-
   return (
     <section style={{backgroundColor:`${isDev().bg}`}} className=' w-screen h-screen md:mt-8  mx-auto fixed'>
       <div className=' w-[100%] h-[500px] m-auto flex flex-col items-center pt-10 mb-3'>

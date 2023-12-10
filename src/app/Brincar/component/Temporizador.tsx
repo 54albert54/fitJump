@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import MoreOptions from "./MoreOptions"
 import MenuBoton from "./MenuBoton"
+import BotonOption from "./BotonOption"
 
 const TimeClock:any = dataConfig?.time
 
@@ -68,37 +69,51 @@ export default function Temporizador ({segundos ,setSegundos,pausado,setPausado,
  
    <MenuBoton setOtherMenu={setOtherMenu}/>
      
+     
       
-      <div className='w-[400px] h-8  flex justify-between px-6 mt-12'>
-        <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-6 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onClick={pausarTemporizador}>
-          <Image
+
+      {otherMenu?
+       <MoreOptions ride={ride} chouseLevels={chouseLevels} setOtherMenu={setOtherMenu} />
+      :<MainBotonContainer pausarTemporizador={pausarTemporizador} reanudarTemporizador={reanudarTemporizador} reiniciarTemporizador={reiniciarTemporizador} />
+    }
+     
+    </div>
+);
+};
+
+
+type PropsBC= {pausarTemporizador:any 
+  reanudarTemporizador:any 
+  reiniciarTemporizador:any
+}
+function MainBotonContainer({pausarTemporizador ,reanudarTemporizador ,reiniciarTemporizador}:PropsBC){
+  return(
+    <section className='w-[400px] h-8  flex justify-between px-6 mt-12'>
+      <BotonOption callAction={pausarTemporizador}>
+        <Image
             src={stopIcon}
             alt="Descripción de la imagen"
             width={50}
             height={50}
           />
-        </button>
-        <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-6 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onClick={reanudarTemporizador}>
-          <Image
-              src={stopplayIcon}
-              alt="Descripción de la imagen"
-              width={50}
-              height={50}
-            />
-        </button>
-        <button className="shadow-xl flex w-[100px] items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-6 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onClick={reiniciarTemporizador}>
+        </BotonOption>
+        <BotonOption callAction={reanudarTemporizador}>
+        <Image
+            src={stopplayIcon}
+            alt="Descripción de la imagen"
+            width={50}
+            height={50}
+          />
+        </BotonOption>
+        <BotonOption callAction={reiniciarTemporizador}>
         <Image
             src={resetIcon}
             alt="Descripción de la imagen"
             width={50}
             height={50}
           />
-        </button>
-      </div>
-      <div >
-
-      {otherMenu && <MoreOptions ride={ride} chouseLevels={chouseLevels} setOtherMenu={setOtherMenu} />}
-      </div>
-    </div>
-);
-};
+        </BotonOption>
+        
+      </section>
+  )
+}
