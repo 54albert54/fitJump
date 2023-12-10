@@ -30,7 +30,7 @@ export default function JumpApp() {
       <div className=' w-[100%] h-[500px] m-auto flex flex-col items-center pt-10 mb-3'>
         <p className='mb-8 text-[32px] font-bold'>  {lap} de {totalLap}</p>
         <div className='w-[100%] relative h-[900px] z-0 flex justify-center items-center'>
-              <div className=' absolute left-[60px] top-[-80px] '>
+              <div className=' absolute right-[80px] top-[-80px] '>
                   <Link href='/'>
                   <Image
                               src={backIcon}
@@ -106,7 +106,7 @@ const Manecilla =({time , restTime}:PropsM)=>{
         const [otherMenu , setOtherMenu ] = useState(false)
         if(segundos > 60){
           setSegundos((stat:number) => stat = 0);
-          setLap((time:number)=> time + .5)
+          setLap((time:number)=> time + 1)
         }
         useEffect(() => {
           let intervalId:any;
