@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react"
-import { TDificult } from "../PieChart"
+import { menuIcon, resetIcon, stopIcon, stopplayIcon } from "@/assets"
+
+import { TDificult } from "@/componentes/PieChart"
+import dataConfig from "@/const/constData"
 import Image from "next/image"
-import MoreOptions from "../MoreOption"
-import { menuIcon , resetIcon , stopIcon , stopplayIcon } from '../../assets'
+import { useEffect, useState } from "react"
+import MoreOptions from "./MoreOptions"
+import MenuBoton from "./MenuBoton"
+
+const TimeClock:any = dataConfig?.time
 
 type PropsC ={
   segundos:any
@@ -15,18 +20,18 @@ type PropsC ={
   totalLap:any
   setTotalLap:any
 }
-const Temporizador = ({segundos ,setSegundos,pausado,setPausado,setLap ,lap ,makeLevels ,totalLap , setTotalLap}:PropsC) => {  
+export default function Temporizador ({segundos ,setSegundos,pausado,setPausado,setLap ,lap ,makeLevels ,totalLap , setTotalLap}:PropsC) {  
   const [otherMenu , setOtherMenu ] = useState(false)
   if(segundos > 60){
     setSegundos((stat:number) => stat = 0);
-    setLap((time:number)=> time + .5)
+    setLap((time:number)=> time + 1)
   }
   useEffect(() => {
     let intervalId:any;
     if (!pausado) {
       intervalId = setInterval(() => {
         setSegundos((prevSegundos:number) => prevSegundos + 1);
-      }, 300);
+      }, TimeClock );
     }          
     return () => {
       clearInterval(intervalId);
@@ -61,15 +66,7 @@ const Temporizador = ({segundos ,setSegundos,pausado,setPausado,setLap ,lap ,mak
 
     <div className='w-auto h-48 p-6 flex flex-col items-center justify-evenly bg-gradient-to-t from-gray-800 to-white rounded-lg shadow-xl relative'>
  
-    <div onClick={()=>setOtherMenu((e)=>!e)} className=' absolute  top-2 right-10 hover:cursor-pointer'>
-    <Image
-      src={menuIcon}
-      alt="Descripción de la imagen"
-      width={50}
-      height={50}
-    />
-
-    </div>
+   <MenuBoton setOtherMenu={setOtherMenu}/>
      
       
       <div className='w-[400px] h-8  flex justify-between px-6 mt-12'>
@@ -100,10 +97,8 @@ const Temporizador = ({segundos ,setSegundos,pausado,setPausado,setLap ,lap ,mak
       </div>
       <div >
 
-      {otherMenu && <MoreOptions ride={ride} chouseLevels={chouseLevels} />}
+      {otherMenu && <MoreOptions ride={ride} chouseLevels={chouseLevels} setOtherMenu={setOtherMenu} />}
       </div>
     </div>
 );
 };
-
-export default Temporizador;
